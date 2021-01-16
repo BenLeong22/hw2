@@ -1,0 +1,74 @@
+<!doctype html>
+<html>
+<head>
+  <title>Example: assignment 2</title>
+  <meta charset="UTF-8" />
+  <style>
+    body { font-family: Arial, Helvetica, sans-serif; line-height: 1.4; }
+    h1 { font-size: 1.5em; margin: 2px 2px; }
+    h2 { font-size: 1.2em; border-bottom: solid 1px lightblue; }
+
+    table#lecture { border-collapse: collapse; border: 1px solid gray; }
+    table#lecture td, table#lecture th { border: 1px solid gray; padding: 4px 8px; }
+    table#lecture thead { border-bottom: 3px double gray; }
+    table#lecture td.editing { background-color: rgba(255, 255, 100, 0.3); color: blue; }
+  </style>
+
+</head>
+
+<body>
+  <h1>Example for assignment 2</h1>
+
+  <h2>Quick test of API endpoints in Q1</h2>
+  <p>These two links are quick tests for the two endpoints in Q1.</p>
+  <ul>
+    <li><a href="/getLectureByYear?year=3">get by year: 3</a></li>
+    <li><a href="/getLectureByRoom?room=A202">get by room: A202</a></li>
+  </ul>
+
+  <h2>An example of endpoint and the client code</h2>
+  <p>This example retrieves a nested data structure from the endpoint '/getCourseByYear': lecture details are stored as an array attribute inside each course object. This is different from the requirement in Q1.</p>
+  
+  <p>Search courses by year of study:
+    <select name='year'>
+        <option value='1'>Year 1</option>
+        <option value='2'>Year 2</option>
+        <option value='3'>Year 3</option>
+        <option value='4'>Year 4</option>
+    </select> 
+    <button type='button' id='btn1'>Search</button>
+  </p>
+
+  <ul id='courses'>
+  </ul>
+
+  <script src="jquery-3.5.1.min.js"></script>
+  <script>
+  // for brevity, the logic code is embedded in this HTML for the example.
+  // In your answer for Q2, you must not embed Javascript in HTML. 
+  // You must save all your JavaScript code in a separate file 'logic.js'
+
+  function showCourses(courses) {
+    const dowName = [ '', 'Mon', 'Tue','Wed', 'Thu', 'Fri' ]
+    const $ul = $('ul#courses')
+    $ul.empty()
+    for (const c of courses) {
+      const s = `${c.code} ${c.title}`
+      const $list = $('<ul>')
+      for (const lec of c.lectures) {
+        $('<li>').text(`${dowName[lec.dow]} ${lec.start}-${lec.end}. Room: ${lec.room}`).appendTo($list)
+      }
+      const $li = $('<li>').text(s).append($list)
+      $ul.append($li)
+    }
+  }
+
+  $('button#btn1').on('click', (e) => {
+      $.get('/getCourseByYear', { year: $("[name='year']").val() }, (data) => {
+       showCourses(data.courses)
+    })
+  })
+  </script>
+  
+</body>
+</html>

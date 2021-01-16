@@ -1,0 +1,46 @@
+<!doctype html>
+<html>
+<head>
+  <title>Search lectures: assignment 2</title>
+  <meta charset="UTF-8" />
+  <style>
+    body { font-family: Arial, Helvetica, sans-serif; line-height: 1.4; }
+    h1 { font-size: 1.5em; margin: 2px 2px; }
+    img { vertical-align:bottom }
+    div.searchCriteria { padding-top: 0.5em; padding-bottom: 0.5em; margin-bottom: 1em; }
+
+    table#lecture { border-collapse: collapse; border: 1px solid gray; }
+    table#lecture td, table#lecture th { border: 1px solid gray; padding: 4px 8px; }
+    table#lecture thead { border-bottom: 3px double gray; }
+    table#lecture td.editing { background-color: rgba(255, 255, 100, 0.3); color: blue; }
+  </style>
+
+</head>
+
+<body>
+  <h1>Search lectures</h1>
+  <p>In this page, you can search lectures using two criteria: by year of study (1, 2, 3 or 4) and by class room (e.g. A202, A210).</p>
+
+  <div class='searchCriteria'>Search lectures by year of study:
+    <select name='year'>
+        <option value='1'>Year 1</option>
+        <option value='2'>Year 2</option>
+        <option value='3'>Year 3</option>
+        <option value='4'>Year 4</option>
+    </select> 
+    <button type='button' id='btn1'>Search</button>
+  </div>
+  <div class='searchCriteria'>Search lectures by room:
+    <input type='text' name='room' value='A202'/>
+    <button type='button' id='btn2'>Search</button>
+  </div>
+    
+  <table id='lecture'>
+    <thead><th>Day and time</th><th>Room</th><th>Course</th><th>Instructor</th></thead>
+    <tbody></tbody>
+  </table>
+
+  <script src="jquery-3.5.1.min.js"></script>
+  <script src="logic.js"></script>
+  </body>
+</html>
